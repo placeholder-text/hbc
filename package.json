@@ -1,10 +1,10 @@
 {
 	"name": "hbc",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "hijacked builtin classes",
 	"main": "index.js",
 	"scripts": {
-		"test": "node test.js"
+		"test": "node test.mjs"
 	},
 	"repository": {
 		"type": "git",
