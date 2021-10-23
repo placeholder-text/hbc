@@ -1,5 +1,5 @@
-import { deepEqual } from "assert";
-import "./index.mjs";
+const { deepEqual } = require("assert");
+require("./index.js");
 
 const map = new Map().set("foo", 1).set("bar", 2);
 const set = new Set().add("foo").add("bar");
