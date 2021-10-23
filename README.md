@@ -15,4 +15,6 @@ to creating new ones.
 - `.some` for Map and Set
 - `.partition` for Array 
 - `.at` for Array (polyfill)
+- `.done` property for Generator functions 
+- `.forEach` for Generator functions 
 
