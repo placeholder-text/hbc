@@ -5,7 +5,7 @@ to creating new ones.
 
 **install**
 - node: `npm i hbc` or `pnpm i hbc`
-- deno: add `import "https://deno.land/x/hbc@v1.0.1/index.js"`
+- deno: add `import "https://deno.land/x/hbc@v1.0.2/index.mjs"`
 
 **current features:**
 - `.map` for Map and Set

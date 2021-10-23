@@ -1,3 +1,3 @@
-import "./map.js";
-import "./set.js";
+import "./map.mjs";
+import "./set.mjs";
 
