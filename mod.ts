@@ -1,4 +1,4 @@
-import "./map.js";
-import "./set.js";
-import "./array.js";
+import "./core/map.js";
+import "./core/set.js";
+import "./core/array.js";
 
