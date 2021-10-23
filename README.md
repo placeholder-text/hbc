@@ -13,4 +13,6 @@ to creating new ones.
 - `.find` for Map and Set
 - `.every` for Map and Set
 - `.some` for Map and Set
+- `.partition` for Array 
+- `.at` for Array (polyfill)
 
