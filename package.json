@@ -1,15 +1,22 @@
 {
 	"name": "hbc",
 	"version": "1.0.5",
+	"author": "tezlm+qmelz",
 	"description": "hijacked builtin classes",
-	"main": "index.js",
+	
+	"main": "mod.js",
+	"type": "module",
+	"exports": {
+		"import": "./mod.js",
+		"require": "./mod.cjs"
+	},
+	
 	"scripts": {
-		"test": "node test.js"
+		"test": "node mod.js"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tezlm/hbc"
 	},
-	"author": "tezlm",
 	"license": "ISC"
 }
