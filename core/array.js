@@ -19,3 +19,10 @@ Array.prototype.partition = function(callback, thisArg) {
 	return [ifTrue, ifFalse];
 };
 
+const map = Array.prototype.map;
+
+Array.prototype.map = function(callback, thisArg){
+	return Promise.all(map.call(this, callback, thisArg));
+}
+
+Array.prototype.mapSync = map;
