@@ -1,8 +1,8 @@
 {
 	"name": "hbc",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "hijacked builtin classes",
-	"main": "index.js",
+	"main": "index.mjs",
 	"scripts": {
 		"test": "node test.mjs"
 	},
