@@ -28,10 +28,12 @@ deepEqual(arr.at(-2), 2);
 deepEqual(arr.partition(i => i <= 2), [[1, 2], [3]]);
 
 const genInstance = gen();
-deepEqual(gen.done, false);
+deepEqual(gen.done(), false);
 deepEqual(gen.next(), { done: false, value: 1 });
-deepEqual(gen.done, false);
+deepEqual(gen.done(), false);
 deepEqual(gen.next(), { done: false, value: 2 });
+deepEqual(gen.peek(), {done: false, value: 2});
 gen.forEach(i => deepEqual(i, { done: false, value: 3 }));
-deepEqual(gen.done, true);
-
+deepEqual(gen.done(), true);
+deepEqual(gen.prev(), {done: false, value: 2});
+deepEqual(gen.next(), {done: true, value: 3});

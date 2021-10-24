@@ -1,8 +1,9 @@
 const Generator = (function*(){})().constructor;
 
 // always return a boolean, not undefined
+Generator.prototype._done = false;
 Generator.prototype.done = function done(){
-	return this._done ?? false;
+	return this._done;
 }
 
 const next = Generator.prototype.next;
@@ -31,6 +32,7 @@ Generator.prototype.peek = function peek(){
 Generator.prototype._values = [];
 Generator.prototype._index = 0;
 Generator.prototype.prev = function prev(){
+	this._done = false;
 	return this._values[--this._index];
 }
 
