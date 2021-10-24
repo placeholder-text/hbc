@@ -1,5 +1,5 @@
 const { deepEqual } = require("assert");
-require("./index.js");
+require("./mod.cjs");
 
 const map = new Map().set("foo", 1).set("bar", 2);
 const set = new Set().add("foo").add("bar");
