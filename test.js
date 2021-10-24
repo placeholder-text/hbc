@@ -8,6 +8,7 @@ function *gen() {
 	yield 1;
 	yield 2;
 	yield 3;
+	return 4;
 }
 
 deepEqual(map.map(i => i + 1), new Map().set("foo", 2).set("bar", 3));
@@ -32,9 +33,10 @@ deepEqual(genInstance.done(), false);
 deepEqual(genInstance.next(), { done: false, value: 1 });
 deepEqual(genInstance.done(), false);
 deepEqual(genInstance.next(), { done: false, value: 2 });
-deepEqual(genInstance.peek(), { done: false, value: 2 });
-genInstance.forEach(i => deepEqual(i, { done: false, value: 3 }));
+deepEqual(genInstance.peek(), { done: false, value: 3 });
+deepEqual(genInstance.prev(), { done: false, value: 1 });
+deepEqual(genInstance.next(), { done: false, value: 2 });
+deepEqual(genInstance.next(), { done: false, value: 3 });
+deepEqual(genInstance.next(), { done: true, value: 4 });
 deepEqual(genInstance.done(), true);
-deepEqual(genInstance.prev(), { done: false, value: 2 });
-deepEqual(genInstance.next(), { done: true, value: 3 });
 

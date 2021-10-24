@@ -1,47 +1,48 @@
 const Generator = (function*(){})().constructor;
 
-// always return a boolean, not undefined
+Generator.prototype._next = Generator.prototype.next;
+Generator.prototype._index = 0;
 Generator.prototype._done = false;
-Generator.prototype.done = function done(){
+Generator.prototype._values = [];
+
+Generator.prototype.done = function() {
 	return this._done;
 }
 
-const next = Generator.prototype.next;
-Generator.prototype.next = function next(...args) {
-	const got = this._values.length - 1 > this._index ?
-		this._values[this._index + 1] :
-		next.call(this, ...args);
+Generator.prototype.next = function(...args) {
+	const got = this._values[this._index] ?? this._next.call(this, ...args);
 	
 	this._done = got.done;
-	this._current = got.value;
-	
-	this._values.push(got);
+	if(!this._values[this._index]) this._values.push(got);
 	this._index++;
 	
 	return got;
 };
 
-Generator.prototype.nextValue = function nextValue(...args){
+Generator.prototype.value = function(...args) {
 	return this.next(...args).value;
 }
 
-Generator.prototype.peek = function peek(){
-	return this._values[this._values.length - 1];
+Generator.prototype.peek = function() {
+	if(!this._values[this._index]) {
+		this.next();
+		this._done = false;
+		this._index--;
+	}
+	return this._values[this._index];
 }
 
-Generator.prototype._values = [];
-Generator.prototype._index = 0;
 Generator.prototype.prev = function prev(){
 	this._done = false;
-	return this._values[--this._index];
+	return this._values[--this._index - 1];
 }
 
 Generator.prototype.forEach = function forEach(callback, thisArg) {
 	if(thisArg) callback = callback.bind(thisArg);
-	for(let i of (this._done ? this._values : this)){
-		this._values.push(i);
-		this._index++;
-		
-		callback(i.value, i.done);
+	while(true) {
+		if(this._done) break;
+		const got = this.next();
+		callback(got.value, got.done);
 	}
 };
+
