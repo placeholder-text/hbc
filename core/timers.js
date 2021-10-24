@@ -1,100 +1,73 @@
-const {setTimeout, setInterval, clearTimeout, clearInterval, queueMicrotask} = globalThis;
+const { setTimeout, setInterval, clearTimeout, clearInterval, queueMicrotask } = globalThis;
 
-class Timer{
-	constructor(){
-		
-	}
-	
-	cancel(){
-		this.clear();
+class Timer {
+	constructor() {
+		if(this.constructor.name === "Timer")
+			throw "cannot init abstract class";
 	}
 }
 
 class Timeout extends Timer{
-	constructor(callback, ms, ...args){
+	constructor(callback, ms, ...args) {
 		super();
 		this.id = setTimeout(callback, ms, ...args);
 	}
 	
-	clear(){
+	cancel() {
 		clearTimeout(this.id);
 	}
 }
 
-class Interval extends Timer{
+class Interval extends Timer {
 	constructor(callback, ms, ...args){
 		super();
 		this.id = setInterval(callback, ms, ...args);
 	}
 	
-	clear(){
+	cancel() {
 		clearInterval(this.id);
 	}
 }
 
-class Task{
-	constructor(){
-		
-	}
-	
-	cancel(){
-		this.clear();
-	}
-}
-
-class Microtask extends Task{
-	constructor(callback){
+class Microtask extends Timer {
+	constructor(callback) {
 		super();
 		this.callback = callback;
 		queueMicrotask(() => this.callback());
 	}
 	
-	clear(){
+	cancel() {
 		this.callback = () => {};
 	}
 }
 
-class Macrotask extends Task{
-	constructor(callback){
+class Macrotask extends Timer {
+	constructor(callback) {
 		super();
 		this.id = setTimeout(callback);
 	}
 	
-	clear(){
+	cancel() {
 		clearTimeout(this.id);
 	}
 }
 
-Object.assign(globalThis, {
-	setTimeout(...args){
-		return new Timeout(...args)
-	},
-	clearTimeout(timeout){
-		if(timeout instanceof Timeout) timeout.clear();
-		clearInterval(timeout);
-	},
-	
-	setInterval(...args){
-		return new Interval(...args);
-	},
-	clearInterval(interval){
-		if(interval instanceof Interval) interval.clear();
-		clearInterval(interval);
-	},
-	
-	queueMicrotask(cb){
-		return new Microtask(cb);
-	},
-	clearMicrotask(task){
-		if(!(task instanceof Microtask)) return;
-		task.clear();
-	},
-	
-	queueMacrotask(cb){
-		return new Macrotask(cb);
-	},
-	clearMacrotask(task){
-		if(!(task instanceof Macrotask)) return;
-		task.clear();
+const cancel = manual => timeout => {
+	if(timeout instanceof Timeout) {
+		timeout.cancel();
+	} else {
+		manual(timeout);
 	}
+}
+
+Object.assign(globalThis, {
+	setTimeout: (...args) => new Timeout(...args),
+	setInterval: (...args) => new Interval(...args),
+	queueMicrotask: (cb) => new Microtask(cb),
+	queueMacrotask: (cb) => new Macrotask(cb),
+	clearTimeout: cancel(clearTimeout),
+	clearInterval: cancel(clearInterval),
+	clearMicrotask: cancel(() => 0),
+	clearMacrotask: cancel(() => 0),
 });
+

@@ -40,3 +40,8 @@ deepEqual(genInstance.next(), { done: false, value: 3 });
 deepEqual(genInstance.next(), { done: true, value: 4 });
 deepEqual(genInstance.done(), true);
 
+const timeout1 = setTimeout(() => { throw "failure" }, 10);
+const timeout2 = setTimeout(() => { throw "failure" }, 10);
+timeout1.cancel();
+clearTimeout(timeout2);
+
