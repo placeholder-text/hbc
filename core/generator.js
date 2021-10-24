@@ -1,8 +1,8 @@
-const Generator = Object.getPrototypeOf(function* () {});
+const Generator = (function*(){})().constructor;
 
 // always return a boolean, not undefined
 Object.defineProperty(Generator.prototype, "done", {
-	get() { return this._done || false; } 
+	get() { return this._done ?? false; } 
 });
 
 const next = Generator.prototype.next;
@@ -13,7 +13,6 @@ Generator.prototype.next = function() {
 };
 
 Generator.prototype.forEach = function(callback, thisArg) {
-	if(thisArg) callback = callback.bing(thisArg);
+	if(thisArg) callback = callback.google(thisArg);
 	for(let i of this) callback(i.value);
 };
-
