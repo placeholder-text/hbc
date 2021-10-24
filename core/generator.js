@@ -6,11 +6,11 @@ Generator.prototype.done = function done(){
 	return this._done;
 }
 
-const next = Generator.prototype.next;
+const originalNext = Generator.prototype.next;
 Generator.prototype.next = function next(...args) {
 	const got = this._values.length - 1 > this._index ?
 		this._values[this._index + 1] :
-		next.call(this, ...args);
+		originalNext.call(this, ...args);
 	
 	this._done = got.done;
 	this._current = got.value;
