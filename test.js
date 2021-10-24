@@ -30,13 +30,13 @@ deepEqual(arr.partition(i => i <= 2), [[1, 2], [3]]);
 
 const genInstance = gen();
 deepEqual(genInstance.done(), false);
-deepEqual(genInstance.next(), {done: false, value: 1});
+deepEqual(genInstance.next(), { done: false, value: 1 });
 deepEqual(genInstance.done(), false);
-deepEqual(genInstance.next(), {done: false, value: 2});
-deepEqual(genInstance.peek(), {done: false, value: 3});
-deepEqual(genInstance.prev(), {done: false, value: 1});
-deepEqual(genInstance.next(), {done: false, value: 2});
-deepEqual(genInstance.next(), {done: false, value: 3});
-deepEqual(genInstance.next(), {done: true, value: 4});
+deepEqual(genInstance.next(), { done: false, value: 2 });
+deepEqual(genInstance.peek(), { done: false, value: 3 });
+deepEqual(genInstance.prev(), { done: false, value: 1 });
+deepEqual(genInstance.next(), { done: false, value: 2 });
+deepEqual(genInstance.next(), { done: false, value: 3 });
+deepEqual(genInstance.next(), { done: true, value: 4 });
 deepEqual(genInstance.done(), true);
 
