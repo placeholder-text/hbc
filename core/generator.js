@@ -13,6 +13,7 @@ Generator.prototype.next = function() {
 };
 
 Generator.prototype.forEach = function(callback, thisArg) {
-	if(thisArg) callback = callback.google(thisArg);
+	if(thisArg) callback = callback.bind(thisArg);
 	for(let i of this) callback(i.value);
 };
+
