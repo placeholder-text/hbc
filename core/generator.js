@@ -38,7 +38,7 @@ Generator.prototype.prev = function prev(){
 
 Generator.prototype.forEach = function forEach(callback, thisArg) {
 	if(thisArg) callback = callback.bind(thisArg);
-	for(let i of this){
+	for(let i of (this._done ? this._values : this)){
 		this._values.push(i);
 		this._index++;
 		
