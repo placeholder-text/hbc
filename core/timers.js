@@ -70,7 +70,7 @@ Object.assign(globalThis, {
 		return new Timeout(...args)
 	},
 	clearTimeout(timeout){
-		if(timeout instanceof Timeout) itimeout.clear();
+		if(timeout instanceof Timeout) timeout.clear();
 		clearInterval(timeout);
 	},
 	
