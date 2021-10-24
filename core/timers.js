@@ -1,35 +1,50 @@
 const {setTimeout, setInterval, clearTimeout, clearInterval, queueMicrotask} = globalThis;
 
-class Timeout{
+class Timer{
+	constructor(){
+		
+	}
+	
+	cancel(){
+		this.clear();
+	}
+}
+
+class Timeout extends Timer{
 	constructor(callback, ms, ...args){
+		super();
 		this.id = setTimeout(callback, ms, ...args);
 	}
 	
 	clear(){
 		clearTimeout(this.id);
 	}
-	
-	cancel(){
-		this.clear();
-	}
 }
 
-class Interval{
+class Interval extends Timer{
 	constructor(callback, ms, ...args){
+		super();
 		this.id = setInterval(callback, ms, ...args);
 	}
 	
 	clear(){
 		clearInterval(this.id);
 	}
+}
+
+class Task{
+	constructor(){
+		
+	}
 	
 	cancel(){
 		this.clear();
 	}
 }
 
-class Microtask{
+class Microtask extends Task{
 	constructor(callback){
+		super();
 		this.callback = callback;
 		queueMicrotask(() => this.callback());
 	}
@@ -37,23 +52,16 @@ class Microtask{
 	clear(){
 		this.callback = () => {};
 	}
-	
-	cancel(){
-		this.clear();
-	}
 }
 
-class Macrotask{
+class Macrotask extends Task{
 	constructor(callback){
+		super();
 		this.id = setTimeout(callback);
 	}
 	
 	clear(){
 		clearTimeout(this.id);
-	}
-	
-	cancel(){
-		this.clear();
 	}
 }
 
