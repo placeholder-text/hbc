@@ -18,3 +18,10 @@ Array.prototype.partition = function(callback, thisArg) {
 	}
 	return [ifTrue, ifFalse];
 };
+
+Array.prototype.peek = function() {
+	return this[this.length - 1];
+};
+
+
+
